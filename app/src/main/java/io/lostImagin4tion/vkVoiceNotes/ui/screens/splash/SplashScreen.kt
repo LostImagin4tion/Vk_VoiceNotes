@@ -1,17 +1,26 @@
 package io.lostImagin4tion.vkVoiceNotes.ui.screens.splash
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import io.lostImagin4tion.vkVoiceNotes.ui.theme.VkVoiceNotesTheme
+import io.lost_imagin4tion.vk_voicenotes.R
 
 /**
  * [SplashScreen] - screen with logo and loader,
@@ -25,16 +34,36 @@ fun SplashScreen() {
 }
 
 @Composable
-private fun SplashScreenContent() = Column(
-    verticalArrangement = Arrangement.Center,
-    horizontalAlignment = Alignment.CenterHorizontally,
+private fun SplashScreenContent() = ConstraintLayout(
     modifier = Modifier
         .fillMaxSize()
-        .imePadding()
+        .background(MaterialTheme.colorScheme.background),
 ) {
-    HopperLoader(
-        context = LocalContext.current,
-        modifier = Modifier.size(64.dp)
+    val (logo, loader) = createRefs()
+
+    Icon(
+        painter = painterResource(R.drawable.ic_mic),
+        contentDescription = null,
+        tint = MaterialTheme.colorScheme.primaryContainer,
+        modifier = Modifier
+            .constrainAs(logo) {
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                top.linkTo(parent.top)
+            }
+            .padding(top = 200.dp)
+            .size(200.dp)
+    )
+
+    CircularProgressIndicator(
+        color = MaterialTheme.colorScheme.onBackground,
+        modifier = Modifier
+            .constrainAs(loader) {
+                centerHorizontallyTo(parent)
+                bottom.linkTo(parent.bottom)
+            }
+            .padding(bottom = 100.dp)
+            .size(48.dp)
     )
 }
 

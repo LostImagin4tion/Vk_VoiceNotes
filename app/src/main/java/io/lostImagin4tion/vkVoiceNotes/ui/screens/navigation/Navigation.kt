@@ -16,6 +16,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import io.lostImagin4tion.vkVoiceNotes.domain.entities.navigation.Routes
+import io.lostImagin4tion.vkVoiceNotes.ui.screens.splash.SplashScreen
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
