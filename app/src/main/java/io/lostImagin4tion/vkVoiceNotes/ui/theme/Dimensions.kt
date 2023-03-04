@@ -1,4 +1,4 @@
-package com.hopper.android.ui.theme
+package io.lostImagin4tion.vkVoiceNotes.ui.theme
 
 import androidx.compose.ui.unit.dp
 

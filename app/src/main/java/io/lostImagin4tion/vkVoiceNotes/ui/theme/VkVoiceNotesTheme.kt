@@ -1,20 +1,11 @@
 package io.lostImagin4tion.vkVoiceNotes.ui.theme
 
-import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
-import androidx.core.view.ViewCompat
 
 private val DarkColorScheme = darkColorScheme(
     primary = vkPrimary,
@@ -22,8 +13,9 @@ private val DarkColorScheme = darkColorScheme(
     primaryContainer = vkPrimaryButton,
     secondaryContainer = vkSecondaryButton,
     tertiaryContainer = vkTertiaryButton,
+    onPrimaryContainer = vkPrimaryButton,
     surface = Color.Black,
-    surfaceVariant = vkPrimaryButton,
+    surfaceVariant = vkGray,
     surfaceTint = vkDarkGray,
     inverseSurface = vkLightBackground,
     onSurface = Color.White,
@@ -38,10 +30,11 @@ private val LightColorScheme = lightColorScheme(
     primaryContainer = vkPrimaryButton,
     secondaryContainer = vkSecondaryButton,
     tertiaryContainer = vkTertiaryButton,
+    onPrimaryContainer = vkDarkGray,
     surface = Color.White,
-    surfaceVariant = Color.Black,
+    surfaceVariant = vkGray,
+    surfaceTint = vkLightGray,
     inverseSurface = vkDarkBackground,
-    surfaceTint = vkLightBackground,
     onSurface = Color.Black,
     inverseOnSurface = Color.White,
     onBackground = vkBlue,

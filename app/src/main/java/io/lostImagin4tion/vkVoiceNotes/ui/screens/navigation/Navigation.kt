@@ -16,6 +16,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import io.lostImagin4tion.vkVoiceNotes.domain.entities.navigation.Routes
+import io.lostImagin4tion.vkVoiceNotes.ui.screens.authorization.AuthorizationScreen
+import io.lostImagin4tion.vkVoiceNotes.ui.screens.notesFeed.NotesFeedScreen
 import io.lostImagin4tion.vkVoiceNotes.ui.screens.splash.SplashScreen
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -51,7 +53,6 @@ fun Navigation(
     )
 }
 
-@Suppress("MagicNumber")
 @Composable
 fun NavigationContent(
     paddingValues: PaddingValues,
@@ -79,8 +80,13 @@ fun NavigationContent(
 
             composable(Routes.authorization) {
                 AuthorizationScreen(
-                    navController = navController,
-                    showMessage = showMessage
+                    navController = navController
+                )
+            }
+
+            composable(Routes.notesFeed) {
+                NotesFeedScreen(
+
                 )
             }
         }

@@ -1,4 +1,4 @@
-package com.hopper.android.ui.theme
+package io.lostImagin4tion.vkVoiceNotes.ui.theme
 
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material.ripple.RippleTheme
@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 object VkVoiceNotesRippleTheme : RippleTheme {
 
     @Composable
-    override fun defaultColor(): Color = hopperGray
+    override fun defaultColor(): Color = vkGray
 
     @Composable
     override fun rippleAlpha() = RippleAlpha(

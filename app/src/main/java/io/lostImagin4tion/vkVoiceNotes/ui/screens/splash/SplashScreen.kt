@@ -1,20 +1,14 @@
 package io.lostImagin4tion.vkVoiceNotes.ui.screens.splash
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -44,7 +38,7 @@ private fun SplashScreenContent() = ConstraintLayout(
     Icon(
         painter = painterResource(R.drawable.ic_mic),
         contentDescription = null,
-        tint = MaterialTheme.colorScheme.primaryContainer,
+        tint = MaterialTheme.colorScheme.primary,
         modifier = Modifier
             .constrainAs(logo) {
                 start.linkTo(parent.start)
@@ -52,7 +46,7 @@ private fun SplashScreenContent() = ConstraintLayout(
                 top.linkTo(parent.top)
             }
             .padding(top = 200.dp)
-            .size(200.dp)
+            .size(100.dp)
     )
 
     CircularProgressIndicator(

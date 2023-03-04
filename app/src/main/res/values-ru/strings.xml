@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vk_VoiceNotes</string>
+
+    <!-- AuthorizationScreen -->
+    <string name="sign_in_with_vk">Войти с помощью VK ID</string>
+    <string name="continue_without_auth">Продолжить без авторизации</string>
+
+    <!-- NotesFeedScreen -->
+    <string name="notes_feed_header">Ваши записи</string>
+</resources>

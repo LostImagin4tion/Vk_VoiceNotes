@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Vk_VoiceNotes</string>
+
+    <!-- AuthorizationScreen -->
+    <string name="sign_in_with_vk">Sign in with VK ID</string>
+    <string name="continue_without_auth">Continue without authorization</string>
+
+    <!-- NotesFeedScreen -->
+    <string name="notes_feed_header">Your notes</string>
 </resources>
