@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Vk_VoiceNotes</string>
+    <string name="app_name">Voice Notes</string>
 
     <!-- AuthorizationScreen -->
     <string name="sign_in_with_vk">Sign in with VK ID</string>

@@ -1,6 +1,17 @@
 package io.lostImagin4tion.vkVoiceNotes.ui.screens.notesFeed
 
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.interaction.Interaction
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,16 +27,23 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import io.lostImagin4tion.vkVoiceNotes.ui.theme.Dimensions
 import io.lostImagin4tion.vkVoiceNotes.ui.uiKit.cards.VoiceNoteCard
 import io.lostImagin4tion.vkVoiceNotes.ui.uiKit.text.SubtitleText
@@ -35,7 +53,11 @@ import io.lost_imagin4tion.vk_voicenotes.R
 fun NotesFeedScreen(
 
 ) {
-    NotesFeedScreenContent()
+    var viewModel: NotesFeedViewModel = viewModel()
+
+    NotesFeedScreenContent(
+
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,26 +65,93 @@ fun NotesFeedScreen(
 private fun NotesFeedScreenContent(
 
 ) {
+    var isRecordingAudio by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    val interactionSource = remember { MutableInteractionSource() }
+    val interactions = remember { mutableStateListOf<Interaction>() }
+
+    val transition = updateTransition(isRecordingAudio, label = "recordingTransition")
+
+    val buttonBackgroundScale by transition.animateFloat(
+        label = "fabScale"
+    ) {
+        if (it) {
+            1.2f
+        } else {
+            1f
+        }
+    }
+
+    val infiniteTransition = rememberInfiniteTransition()
+    val scale by infiniteTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 1.5f * buttonBackgroundScale,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000),
+            repeatMode = RepeatMode.Reverse
+        )
+    )
+
+    LaunchedEffect(interactionSource) {
+        interactionSource.interactions.collect { interaction ->
+            when (interaction) {
+                is PressInteraction.Press -> {
+                    interactions.add(interaction)
+                    isRecordingAudio = true
+                }
+                is PressInteraction.Release -> {
+                    interactions.remove(interaction.press)
+                    isRecordingAudio = false
+                }
+                is PressInteraction.Cancel -> {
+                    interactions.remove(interaction.press)
+                }
+            }
+        }
+    }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
             .imePadding(),
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = { /*TODO*/ },
-                shape = CircleShape,
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = Color.White,
+            Box(
                 modifier = Modifier
                     .padding(bottom = Dimensions.mainVerticalPadding * 2)
-                    .size(64.dp)
+                    .size(80.dp)
             ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_mic),
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(36.dp)
-                )
+                Surface(
+                    shape = CircleShape,
+                    color = MaterialTheme.colorScheme.primaryContainer.copy(
+                        alpha = 0.25f
+                    ),
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(64.dp)
+                        .scale(
+                            if (isRecordingAudio) scale else 1f
+                        )
+                ) {}
+
+                FloatingActionButton(
+                    onClick = {},
+                    interactionSource = interactionSource,
+                    shape = CircleShape,
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = Color.White,
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(64.dp * buttonBackgroundScale)
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_mic),
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.size(36.dp * buttonBackgroundScale)
+                    )
+                }
             }
         },
         floatingActionButtonPosition = FabPosition.Center
@@ -132,7 +221,7 @@ private fun NotesFeedScreenContent(
 
                     VoiceNoteCard(
                         onIconButtonCLick = { isPlaying = !isPlaying },
-                        cardName = "Крутой трек - надо найти!21212121212121",
+                        cardName = "Крутой трек - надо найти!",
                         timestamp = "12.02.2022 в 13:11",
                         audioDuration = "0:31",
                         isPlaying = isPlaying

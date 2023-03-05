@@ -12,7 +12,7 @@ object VkVoiceNotesRippleTheme : RippleTheme {
 
     @Composable
     override fun rippleAlpha() = RippleAlpha(
-        pressedAlpha = 0.2f,
+        pressedAlpha = 0.4f,
         focusedAlpha = 0.12f,
         draggedAlpha = 0.08f,
         hoveredAlpha = 0.04f

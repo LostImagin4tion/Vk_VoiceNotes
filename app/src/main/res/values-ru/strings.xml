@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Vk_VoiceNotes</string>
+    <string name="app_name">Голосовые заметки</string>
 
     <!-- AuthorizationScreen -->
     <string name="sign_in_with_vk">Войти с помощью VK ID</string>
