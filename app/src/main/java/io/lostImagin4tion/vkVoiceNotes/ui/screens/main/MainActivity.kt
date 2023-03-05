@@ -1,9 +1,10 @@
 package io.lostImagin4tion.vkVoiceNotes.ui.screens.main
 
+import android.Manifest
 import android.app.Activity
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material.ripple.LocalRippleTheme
@@ -20,10 +21,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
+import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
-import io.lostImagin4tion.vkVoiceNotes.ui.theme.VkVoiceNotesRippleTheme
 import io.lostImagin4tion.vkVoiceNotes.ui.screens.navigation.Navigation
+import io.lostImagin4tion.vkVoiceNotes.ui.theme.VkVoiceNotesRippleTheme
 import io.lostImagin4tion.vkVoiceNotes.ui.theme.VkVoiceNotesTheme
 
 /**
@@ -31,11 +33,17 @@ import io.lostImagin4tion.vkVoiceNotes.ui.theme.VkVoiceNotesTheme
  *
  * @author Egor Danilov
  */
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.RECORD_AUDIO),
+            0
+        )
 
         WindowCompat.setDecorFitsSystemWindows(window, true)
         setContent {

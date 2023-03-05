@@ -74,9 +74,7 @@ private fun NotesFeedScreenContent(
     startPlaying: () -> Unit = {},
     stopPlaying: () -> Unit = {}
 ) {
-    var isRecordingAudio by rememberSaveable {
-        mutableStateOf(false)
-    }
+    var isRecordingAudio by rememberSaveable { mutableStateOf(false) }
 
     val interactionSource = remember { MutableInteractionSource() }
     val interactions = remember { mutableStateListOf<Interaction>() }
