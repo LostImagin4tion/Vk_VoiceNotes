@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Voice Notes</string>
 
+    <string name="common_error_message">Something went wrong. Try again…</string>
+
     <!-- AuthorizationScreen -->
     <string name="sign_in_with_vk">Sign in with VK ID</string>
     <string name="continue_without_auth">Continue without authorization</string>

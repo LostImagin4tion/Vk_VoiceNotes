@@ -16,7 +16,5 @@ interface AppComponent {
         fun build(): AppComponent
     }
 
-    val context: Context
-
     fun inject(notesFeedViewModel: NotesFeedViewModel)
 }

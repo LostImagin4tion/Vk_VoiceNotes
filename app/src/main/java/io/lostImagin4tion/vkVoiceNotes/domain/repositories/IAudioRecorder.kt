@@ -4,6 +4,6 @@ import java.io.File
 
 interface IAudioRecorder {
 
-    fun start(outputFile: File)
+    fun start(): File
     fun stop()
 }

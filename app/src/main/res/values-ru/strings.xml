@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">Голосовые заметки</string>
 
+    <string name="common_error_message">Что-то пошло не так. Попробуйте еще раз…</string>
+
     <!-- AuthorizationScreen -->
     <string name="sign_in_with_vk">Войти с помощью VK ID</string>
     <string name="continue_without_auth">Продолжить без авторизации</string>

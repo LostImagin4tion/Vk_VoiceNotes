@@ -6,7 +6,6 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
@@ -37,13 +36,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import io.lostImagin4tion.vkVoiceNotes.domain.entities.VoiceNote
 import io.lostImagin4tion.vkVoiceNotes.ui.theme.Dimensions
 import io.lostImagin4tion.vkVoiceNotes.ui.uiKit.cards.VoiceNoteCard
 import io.lostImagin4tion.vkVoiceNotes.ui.uiKit.text.SubtitleText
@@ -53,17 +52,27 @@ import io.lost_imagin4tion.vk_voicenotes.R
 fun NotesFeedScreen(
 
 ) {
-    var viewModel: NotesFeedViewModel = viewModel()
+    val viewModel: NotesFeedViewModel = viewModel()
+
+    val voiceNotes = viewModel.voiceNotes
 
     NotesFeedScreenContent(
-
+        voiceNotes = voiceNotes,
+        startRecording = viewModel::startRecording,
+        stopRecording = viewModel::stopRecording,
+        addNewVoiceNote = viewModel::addNewVoiceNote
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun NotesFeedScreenContent(
-
+    voiceNotes: List<VoiceNote> = emptyList(),
+    startRecording: () -> Unit = {},
+    stopRecording: () -> Unit = {},
+    addNewVoiceNote: (String?) -> Unit = {},
+    startPlaying: () -> Unit = {},
+    stopPlaying: () -> Unit = {}
 ) {
     var isRecordingAudio by rememberSaveable {
         mutableStateOf(false)
@@ -100,10 +109,13 @@ private fun NotesFeedScreenContent(
                 is PressInteraction.Press -> {
                     interactions.add(interaction)
                     isRecordingAudio = true
+                    startRecording()
                 }
                 is PressInteraction.Release -> {
                     interactions.remove(interaction.press)
                     isRecordingAudio = false
+                    stopRecording()
+                    addNewVoiceNote("хуй")
                 }
                 is PressInteraction.Cancel -> {
                     interactions.remove(interaction.press)
