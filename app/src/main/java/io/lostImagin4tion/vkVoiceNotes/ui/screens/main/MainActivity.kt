@@ -39,11 +39,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.RECORD_AUDIO),
-            0
-        )
+        requestPermissions(this)
 
         WindowCompat.setDecorFitsSystemWindows(window, true)
         setContent {
@@ -100,4 +96,12 @@ private fun SetupStatusBarColor() {
                 .isAppearanceLightStatusBars = isLightStatusBar
         }
     }
+}
+
+private fun requestPermissions(activity: Activity) {
+    ActivityCompat.requestPermissions(
+        activity,
+        arrayOf(Manifest.permission.RECORD_AUDIO),
+        0
+    )
 }

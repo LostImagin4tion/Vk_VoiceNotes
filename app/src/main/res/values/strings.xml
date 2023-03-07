@@ -9,4 +9,7 @@
 
     <!-- NotesFeedScreen -->
     <string name="notes_feed_header">Your notes</string>
+
+    <!-- DateHelper -->
+    <string name="voice_note_timestamp">%s at %s</string>
 </resources>

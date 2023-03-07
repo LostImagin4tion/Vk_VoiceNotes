@@ -1,66 +1,50 @@
 package io.lostImagin4tion.vkVoiceNotes.ui.screens.notesFeed
 
-import android.media.MediaMetadataRetriever
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import io.lostImagin4tion.vkVoiceNotes.VkVoiceNotesApp
 import io.lostImagin4tion.vkVoiceNotes.dagger.AppComponent
-import io.lostImagin4tion.vkVoiceNotes.domain.entities.VoiceNote
-import io.lostImagin4tion.vkVoiceNotes.domain.repositories.IAudioPlayer
-import io.lostImagin4tion.vkVoiceNotes.domain.repositories.IAudioRecorder
-import kotlinx.coroutines.launch
-import java.io.File
+import io.lostImagin4tion.vkVoiceNotes.data.repositories.entities.VoiceNote
+import io.lostImagin4tion.vkVoiceNotes.domain.repositories.IAudioRepository
 import javax.inject.Inject
 
 class NotesFeedViewModel(
     appComponent: AppComponent = VkVoiceNotesApp.appComponent
 ): ViewModel() {
 
-    @Inject lateinit var audioRecorder: IAudioRecorder
-    @Inject lateinit var audioPlayer: IAudioPlayer
+    @Inject lateinit var audioRepository: IAudioRepository
 
     init {
         appComponent.inject(this)
     }
 
     val voiceNotes = mutableStateListOf<VoiceNote>()
-    private var currentRecordingFile: File? = null
+    private var currentRecording: VoiceNote? = null
 
-    fun startRecording() = viewModelScope.launch {
-        val outputFile = audioRecorder.start()
+    fun startRecording() {
+        currentRecording = audioRepository.startRecording()
     }
 
     fun stopRecording() {
-        audioRecorder.stop()
+        audioRepository.stopRecording()
     }
 
     fun addNewVoiceNote(name: String?) {
-        currentRecordingFile?.let {
+        currentRecording?.let {
             voiceNotes.add(
-                VoiceNote(
+                it.copy(
                     name = name ?: it.name,
-                    duration = getDurationOfAudio(it),
-                    file = it
+                    duration = audioRepository.getDurationOfAudio(it.file)
                 )
             )
         }
     }
 
-    private fun getDurationOfAudio(file: File): String {
-        val retriever = MediaMetadataRetriever().apply {
-            setDataSource(file.absolutePath)
-        }
+    fun startPlaying(voiceNote: VoiceNote) {
+        audioRepository.startPlaying(voiceNote.file)
+    }
 
-        val duration = retriever.extractMetadata(
-            MediaMetadataRetriever.METADATA_KEY_DURATION
-        )?.toLong()
-
-        return if (duration != null) {
-            val minutes = duration / (1000 * 60)
-            val seconds = duration % (1000 * 60) / 1000
-
-            "$minutes:$seconds"
-        } else ""
+    fun stopPlaying() {
+        audioRepository.stopPlaying()
     }
 }

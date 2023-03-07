@@ -10,4 +10,7 @@
 
     <!-- NotesFeedScreen -->
     <string name="notes_feed_header">Ваши записи</string>
+
+    <!-- DateHelper -->
+    <string name="voice_note_timestamp">%s в %s</string>
 </resources>
