@@ -1,0 +1,1 @@
+package io.lostImagin4tion.voiceNotes.domain.entities

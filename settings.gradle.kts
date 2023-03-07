@@ -15,5 +15,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Vk_VoiceNotes"
+rootProject.name = "VoiceNotes"
 include(":app")
