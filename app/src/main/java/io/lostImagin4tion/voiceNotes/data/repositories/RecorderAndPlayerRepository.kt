@@ -3,13 +3,13 @@ package io.lostImagin4tion.voiceNotes.data.repositories
 import android.content.Context
 import android.media.MediaMetadataRetriever
 import io.lostImagin4tion.voiceNotes.data.repositories.entities.VoiceNote
-import io.lostImagin4tion.voiceNotes.domain.repositories.IAudioRepository
+import io.lostImagin4tion.voiceNotes.domain.repositories.IRecorderAndPlayerRepository
 import java.io.File
 import javax.inject.Inject
 
-class AudioRepository @Inject constructor(
+class RecorderAndPlayerRepository @Inject constructor(
     private val context: Context
-): IAudioRepository {
+): IRecorderAndPlayerRepository {
 
     private val audioRecorder by lazy { AudioRecorder(context) }
     private val audioPlayer by lazy { AudioPlayer(context) }

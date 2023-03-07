@@ -42,18 +42,7 @@ import timber.log.Timber
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavHostController
-    private val authLauncher = VK.login(this) { result: VKAuthenticationResult ->
-        when (result) {
-            is VKAuthenticationResult.Success -> {
-                Timber.d("VK TOKEN ${result.token.accessToken}")
-                navController.navigate(Routes.notesFeed)
-            }
-            is VKAuthenticationResult.Failed -> {
-                Timber.d("AUTH ERROR ${result.exception.message}")
-                navController.navigate(Routes.authorization)
-            }
-        }
-    }
+    private val authLauncher = createVkAuthLauncher()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,30 +90,43 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-}
 
-@Composable
-private fun SetupStatusBarColor() {
-    val view = LocalView.current
-    if (!view.isInEditMode) {
-        val currentWindow = (view.context as? Activity)?.window
-            ?: error("Not in an activity - unable to get Window reference")
+    @Composable
+    private fun SetupStatusBarColor() {
+        val view = LocalView.current
+        if (!view.isInEditMode) {
+            val currentWindow = (view.context as? Activity)?.window
+                ?: error("Not in an activity - unable to get Window reference")
 
-        val color = MaterialTheme.colorScheme.background.toArgb()
-        val isLightStatusBar = !isSystemInDarkTheme()
+            val color = MaterialTheme.colorScheme.background.toArgb()
+            val isLightStatusBar = !isSystemInDarkTheme()
 
-        SideEffect {
-            currentWindow.statusBarColor = color
-            WindowCompat.getInsetsController(currentWindow, view)
-                .isAppearanceLightStatusBars = isLightStatusBar
+            SideEffect {
+                currentWindow.statusBarColor = color
+                WindowCompat.getInsetsController(currentWindow, view)
+                    .isAppearanceLightStatusBars = isLightStatusBar
+            }
         }
     }
-}
 
-private fun requestPermissions(activity: Activity) {
-    ActivityCompat.requestPermissions(
-        activity,
-        arrayOf(Manifest.permission.RECORD_AUDIO),
-        0
-    )
+    private fun requestPermissions(activity: Activity) {
+        ActivityCompat.requestPermissions(
+            activity,
+            arrayOf(Manifest.permission.RECORD_AUDIO),
+            0
+        )
+    }
+
+    private fun createVkAuthLauncher() = VK.login(this) { result: VKAuthenticationResult ->
+        when (result) {
+            is VKAuthenticationResult.Success -> {
+                Timber.d("VK TOKEN ${result.token.accessToken}")
+                navController.navigate(Routes.notesFeed)
+            }
+            is VKAuthenticationResult.Failed -> {
+                Timber.d("AUTH ERROR ${result.exception.message}")
+                navController.navigate(Routes.authorization)
+            }
+        }
+    }
 }

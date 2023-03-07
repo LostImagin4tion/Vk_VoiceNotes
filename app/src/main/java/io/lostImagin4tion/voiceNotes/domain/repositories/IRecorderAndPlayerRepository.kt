@@ -4,7 +4,7 @@ import io.lostImagin4tion.voiceNotes.data.repositories.entities.VoiceNote
 import java.io.File
 
 
-interface IAudioRepository {
+interface IRecorderAndPlayerRepository {
 
     fun startRecording(): VoiceNote
     fun stopRecording()

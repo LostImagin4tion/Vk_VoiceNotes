@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import io.lostImagin4tion.voiceNotes.VoiceNotesApp
 import io.lostImagin4tion.voiceNotes.dagger.AppComponent
 import io.lostImagin4tion.voiceNotes.data.repositories.entities.VoiceNote
-import io.lostImagin4tion.voiceNotes.domain.repositories.IAudioRepository
+import io.lostImagin4tion.voiceNotes.domain.repositories.IRecorderAndPlayerRepository
 import javax.inject.Inject
 
 class NotesFeedViewModel(
     appComponent: AppComponent = VoiceNotesApp.appComponent
 ): ViewModel() {
 
-    @Inject lateinit var audioRepository: IAudioRepository
+    @Inject lateinit var audioRepository: IRecorderAndPlayerRepository
 
     init {
         appComponent.inject(this)
