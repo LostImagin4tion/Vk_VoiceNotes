@@ -13,8 +13,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import io.lostImagin4tion.voiceNotes.ui.theme.VkVoiceNotesTheme
-import io.lost_imagin4tion.vk_voicenotes.R
+import io.lostImagin4tion.voiceNotes.ui.theme.VoiceNotesTheme
+import io.lostImagin4tion.voiceNotes.R
 
 /**
  * [SplashScreen] - screen with logo and loader,
@@ -63,6 +63,6 @@ private fun SplashScreenContent() = ConstraintLayout(
 
 @Composable
 @Preview(showBackground = true)
-fun SplashScreenPreview() = VkVoiceNotesTheme {
+fun SplashScreenPreview() = VoiceNotesTheme {
     SplashScreenContent()
 }

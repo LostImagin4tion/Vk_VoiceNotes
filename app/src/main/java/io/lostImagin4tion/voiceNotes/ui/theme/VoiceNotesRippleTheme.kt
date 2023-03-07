@@ -5,7 +5,7 @@ import androidx.compose.material.ripple.RippleTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-object VkVoiceNotesRippleTheme : RippleTheme {
+object VoiceNotesRippleTheme : RippleTheme {
 
     @Composable
     override fun defaultColor(): Color = vkGray

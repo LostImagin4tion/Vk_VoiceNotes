@@ -35,7 +35,8 @@ import kotlinx.coroutines.launch
 fun Navigation(
     snackbarHostState: SnackbarHostState,
     paddingValues: PaddingValues,
-    navController: NavHostController
+    navController: NavHostController,
+    loginWithVK: () -> Unit
 ) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -50,6 +51,7 @@ fun Navigation(
         paddingValues = paddingValues,
         navController = navController,
         showMessage = showMessage,
+        loginWithVK = loginWithVK
     )
 }
 
@@ -58,6 +60,7 @@ fun NavigationContent(
     paddingValues: PaddingValues,
     navController: NavHostController,
     showMessage: (Int) -> Unit,
+    loginWithVK: () -> Unit
 ) {
     Surface(
         modifier = Modifier
@@ -80,7 +83,9 @@ fun NavigationContent(
 
             composable(Routes.authorization) {
                 AuthorizationScreen(
-                    navController = navController
+                    navController = navController,
+                    showMessage = showMessage,
+                    loginWithVK = loginWithVK
                 )
             }
 

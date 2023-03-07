@@ -27,9 +27,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.lostImagin4tion.voiceNotes.ui.theme.Dimensions
-import io.lostImagin4tion.voiceNotes.ui.theme.VkVoiceNotesTheme
+import io.lostImagin4tion.voiceNotes.ui.theme.VoiceNotesTheme
 import io.lostImagin4tion.voiceNotes.ui.uiKit.text.LabelText
-import io.lost_imagin4tion.vk_voicenotes.R
+import io.lostImagin4tion.voiceNotes.R
 
 @Composable
 fun VoiceNoteCard(
@@ -146,7 +146,7 @@ fun VoiceNoteCard(
 
 @Preview
 @Composable
-private fun VoiceNoteCardPreview() = VkVoiceNotesTheme {
+private fun VoiceNoteCardPreview() = VoiceNotesTheme {
     VoiceNoteCard(
         cardName = "Крутой трек - надо найти!21212121212121",
         timestamp = "Сегодня в 12:51",

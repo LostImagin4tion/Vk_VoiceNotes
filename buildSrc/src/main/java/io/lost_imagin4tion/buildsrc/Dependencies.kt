@@ -171,4 +171,13 @@ object Dependencies {
         const val TEST_JUNIT = "test-junit"
         const val MOCKK = "io.mockk:mockk:$MOCKK_VERSION"
     }
+
+    object VkSDK {
+        private const val VERSION = "4.0.1"
+
+        const val CORE = "com.vk:android-sdk-core:$VERSION"
+        const val API = "com.vk:android-sdk-api:$VERSION"
+
+        val ALL_DEPS = listOf(CORE, API)
+    }
 }

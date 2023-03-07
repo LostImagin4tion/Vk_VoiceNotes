@@ -42,7 +42,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun VkVoiceNotesTheme(
+fun VoiceNotesTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {

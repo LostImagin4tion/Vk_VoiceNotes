@@ -43,7 +43,7 @@ import io.lostImagin4tion.voiceNotes.ui.theme.Dimensions
 import io.lostImagin4tion.voiceNotes.ui.theme.vkRed
 import io.lostImagin4tion.voiceNotes.ui.uiKit.cards.VoiceNoteCard
 import io.lostImagin4tion.voiceNotes.ui.uiKit.text.SubtitleText
-import io.lost_imagin4tion.vk_voicenotes.R
+import io.lostImagin4tion.voiceNotes.R
 import timber.log.Timber
 
 @Composable

@@ -23,10 +23,16 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowCompat
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.vk.api.sdk.VK
+import com.vk.api.sdk.auth.VKAuthenticationResult
+import com.vk.api.sdk.auth.VKScope
+import io.lostImagin4tion.voiceNotes.domain.entities.navigation.Routes
 import io.lostImagin4tion.voiceNotes.ui.screens.navigation.Navigation
-import io.lostImagin4tion.voiceNotes.ui.theme.VkVoiceNotesRippleTheme
-import io.lostImagin4tion.voiceNotes.ui.theme.VkVoiceNotesTheme
+import io.lostImagin4tion.voiceNotes.ui.theme.VoiceNotesRippleTheme
+import io.lostImagin4tion.voiceNotes.ui.theme.VoiceNotesTheme
+import timber.log.Timber
 
 /**
  * [MainActivity] - the initial activity that starts navigation across the app
@@ -34,6 +40,20 @@ import io.lostImagin4tion.voiceNotes.ui.theme.VkVoiceNotesTheme
  * @author Egor Danilov
  */
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var navController: NavHostController
+    private val authLauncher = VK.login(this) { result: VKAuthenticationResult ->
+        when (result) {
+            is VKAuthenticationResult.Success -> {
+                Timber.d("VK TOKEN ${result.token.accessToken}")
+                navController.navigate(Routes.notesFeed)
+            }
+            is VKAuthenticationResult.Failed -> {
+                Timber.d("AUTH ERROR ${result.exception.message}")
+                navController.navigate(Routes.authorization)
+            }
+        }
+    }
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,12 +63,14 @@ class MainActivity : AppCompatActivity() {
 
         WindowCompat.setDecorFitsSystemWindows(window, true)
         setContent {
-            val navController = rememberNavController()
+            navController = rememberNavController()
             val snackbarHostState = remember { SnackbarHostState() }
 
-            VkVoiceNotesTheme {
+            val loginWithVK: () -> Unit = { authLauncher.launch(arrayListOf(VKScope.DOCS)) }
+
+            VoiceNotesTheme {
                 CompositionLocalProvider(
-                    LocalRippleTheme provides VkVoiceNotesRippleTheme
+                    LocalRippleTheme provides VoiceNotesRippleTheme
                 ) {
                     SetupStatusBarColor()
 
@@ -70,7 +92,8 @@ class MainActivity : AppCompatActivity() {
                             Navigation(
                                 snackbarHostState = snackbarHostState,
                                 paddingValues = it,
-                                navController = navController
+                                navController = navController,
+                                loginWithVK = loginWithVK
                             )
                         }
                     )

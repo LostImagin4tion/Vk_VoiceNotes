@@ -20,27 +20,31 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
+import io.lostImagin4tion.voiceNotes.R
 import io.lostImagin4tion.voiceNotes.domain.entities.navigation.Routes
 import io.lostImagin4tion.voiceNotes.ui.theme.Dimensions
-import io.lostImagin4tion.voiceNotes.ui.theme.VkVoiceNotesTheme
+import io.lostImagin4tion.voiceNotes.ui.theme.VoiceNotesTheme
 import io.lostImagin4tion.voiceNotes.ui.uiKit.buttons.TextFilledButton
 import io.lostImagin4tion.voiceNotes.ui.uiKit.text.LabelText
-import io.lost_imagin4tion.vk_voicenotes.R
 
 @Composable
 fun AuthorizationScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    showMessage: (Int) -> Unit,
+    loginWithVK: () -> Unit
 ) {
     val navigateToFeed = { navController.navigate(Routes.notesFeed) }
 
     AuthorizationScreenContent(
-        navigateToFeed = navigateToFeed
+        navigateToFeed = navigateToFeed,
+        loginWithVK = loginWithVK
     )
 }
 
 @Composable
 private fun AuthorizationScreenContent(
-    navigateToFeed: () -> Unit = {}
+    navigateToFeed: () -> Unit = {},
+    loginWithVK: () -> Unit = {}
 ) = ConstraintLayout(
     modifier = Modifier
         .fillMaxSize()
@@ -76,7 +80,7 @@ private fun AuthorizationScreenContent(
             .padding(horizontal = Dimensions.mainHorizontalPadding)
     ) {
         TextFilledButton(
-            onClick = navigateToFeed,
+            onClick = loginWithVK,
             textResource = R.string.sign_in_with_vk,
             iconResource = R.drawable.vk_white_logo,
             colors = ButtonDefaults.buttonColors(
@@ -103,6 +107,6 @@ private fun AuthorizationScreenContent(
 
 @Composable
 @Preview(showBackground = true)
-fun AuthorizationScreenPreview() = VkVoiceNotesTheme {
+fun AuthorizationScreenPreview() = VoiceNotesTheme {
     AuthorizationScreenContent()
 }

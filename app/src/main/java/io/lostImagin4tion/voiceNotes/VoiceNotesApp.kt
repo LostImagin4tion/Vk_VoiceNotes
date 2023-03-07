@@ -1,12 +1,19 @@
 package io.lostImagin4tion.voiceNotes
 
 import android.app.Application
+import com.vk.api.sdk.VK
+import com.vk.api.sdk.VKTokenExpiredHandler
 import io.lostImagin4tion.voiceNotes.dagger.AppComponent
 import io.lostImagin4tion.voiceNotes.dagger.DaggerAppComponent
-import io.lost_imagin4tion.vk_voicenotes.BuildConfig
 import timber.log.Timber
 
 class VoiceNotesApp: Application() {
+
+    private val tokenTracker = object: VKTokenExpiredHandler {
+        override fun onTokenExpired() {
+            // token expired
+        }
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -15,6 +22,7 @@ class VoiceNotesApp: Application() {
             .context(this)
             .build()
 
+        VK.addTokenExpiredHandler(tokenTracker)
         initTimber()
     }
 

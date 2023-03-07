@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "io.lost_imagin4tion.vk_voicenotes"
+    namespace = "io.lostImagin4tion.voiceNotes"
     compileSdk = CompileVersions.CURRENT_COMPILE_VERSION
 
     defaultConfig {
@@ -25,6 +25,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -80,4 +84,7 @@ dependencies {
 
     // Logger
     implementation(Dependencies.Logger.TIMBER)
+
+    // Vk SDK
+    Dependencies.VkSDK.ALL_DEPS.forEach { implementation(it) }
 }
